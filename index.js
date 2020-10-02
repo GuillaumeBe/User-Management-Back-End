@@ -1,7 +1,6 @@
 const { GraphQLServer } = require("graphql-yoga");
 const mongoose = require("mongoose");
 
-const options = require("./queries/options");
 const user = require("./queries/user");
 const users = require("./queries/users");
 const teams = require("./queries/teams");
@@ -21,7 +20,6 @@ mongoose.connection.once("open", () => console.log("DB connected"));
 
 const resolvers = {
   Query: {
-    options: async () => options(),
     user: async (parents, args) => user(args),
     users: async () => users(),
     teams: async () => teams(),
