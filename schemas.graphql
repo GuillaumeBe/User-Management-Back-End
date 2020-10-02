@@ -1,0 +1,49 @@
+type Query {
+  user(id: ID!): User!
+  users: [User]!
+  teams: [Team]!
+}
+
+type Mutation {
+  createUser(
+    firstName: String!
+    lastName: String!
+    email: String!
+    role: AllowedRoles!
+  ): User!
+  updateUser(
+    id: ID!
+    firstName: String!
+    lastName: String!
+    email: String!
+    role: AllowedRoles!
+  ): UserWithMessage!
+  createTeam(name: String!, leader: ID!, members: [ID!]!, intern: ID!): Team!
+}
+
+type UserWithMessage {
+  user: User!
+  message: String
+}
+
+type User {
+  _id: ID!
+  firstName: String!
+  lastName: String!
+  email: String
+  role: AllowedRoles
+}
+
+type Team {
+  _id: ID!
+  name: String!
+  leader: User!
+  members: [User!]!
+  intern: User!
+}
+
+enum AllowedRoles {
+  Leader
+  Member
+  Intern
+}
