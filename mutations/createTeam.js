@@ -8,6 +8,10 @@ const createTeam = async (args) => {
       throw new Error("Cet utilisateur est déjà leader dans une team");
     }
 
+    if (args.members.length > 2) {
+      throw new Error("Une équipe peut contenir 2 membres au maximum");
+    }
+
     const team = new Team({
       name: args.name,
       leader: args.leader,

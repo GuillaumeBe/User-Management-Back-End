@@ -4,6 +4,12 @@ const updateUser = async (args) => {
   try {
     const previousUser = await User.findOne({ _id: args.id });
 
+    if (previousUser.role === "Leader" && args.role === "Intern")
+      throw new Error("Un leader ne peut pas passer intern");
+
+    if (previousUser.role === "Intern" && args.role === "Leader")
+      throw new Error("Un intern ne peut pas passer leader");
+
     let message;
     if (previousUser.role !== args.role)
       message =
@@ -19,6 +25,7 @@ const updateUser = async (args) => {
       },
       { new: true }
     );
+
     return { user, message };
   } catch (err) {
     throw new Error(err.message);
