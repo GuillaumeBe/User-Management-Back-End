@@ -9,7 +9,9 @@ const createUser = require("./mutations/createUser");
 const updateUser = require("./mutations/updateUser");
 const createTeam = require("./mutations/createTeam");
 
-mongoose.connect("mongodb://localhost/manage-users", {
+require("dotenv").config();
+
+mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useCreateIndex: true,
@@ -36,6 +38,19 @@ const server = new GraphQLServer({
   resolvers,
 });
 
-server.start(() => {
-  console.log("Server started");
-});
+server.start(
+  {
+    port: process.env.PORT,
+    cors: {
+      credentials: true,
+      origin: [
+        process.env.ENV === "PRODUCTION"
+          ? "https://trusting-lewin-546ba8.netlify.app"
+          : process.env.ENV === "DEVELOPMENT" && "http://localhost:3000",
+      ],
+    },
+  },
+  () => {
+    console.log("Server started");
+  }
+);
