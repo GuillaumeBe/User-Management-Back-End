@@ -49,4 +49,4 @@ npm start
 
 ## Contact
 
-<a href="https://www.linkedin.com/in/guillaumebettin" target="_blank">My Linkedin Profil</a>
+<a href="https://www.linkedin.com/in/guillaumebettin" target="_blank">My Linkedin Profile</a>
